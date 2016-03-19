@@ -1,0 +1,20 @@
+apply plugin: 'java'
+
+group = 'org.home.spring.jmx'
+version = '1.0.0'
+
+targetCompatibility = 1.8
+sourceCompatibility = 1.8
+
+repositories {
+    jcenter()
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.springframework:spring-core:${springframeworkVersion}"
+    compile "org.springframework:spring-context:${springframeworkVersion}"
+
+    compile 'javax.inject:javax.inject:1'
+}
