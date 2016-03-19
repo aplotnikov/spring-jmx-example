@@ -1,17 +1,17 @@
-package org.home.spring.jmx.common;
+package org.home.spring.jmx.common.thread;
 
-import org.home.spring.jmx.common.beans.JmxBean;
+import org.home.spring.jmx.common.beans.Stoppable;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 
 @Component
 public class MyThread implements Runnable {
-    private final JmxBean jmxBean;
+    private final Stoppable stoppableBean;
 
     @Inject
-    public MyThread(JmxBean jmxBean) {
-        this.jmxBean = jmxBean;
+    public MyThread(Stoppable stoppableBean) {
+        this.stoppableBean = stoppableBean;
 
         Thread thread = new Thread(this);
         thread.start();
@@ -21,7 +21,7 @@ public class MyThread implements Runnable {
     public void run() {
         System.out.println("My Thread was launched!");
 
-        while (!jmxBean.isStopped()) {
+        while (!stoppableBean.isStopped()) {
             try {
                 Thread.sleep(2_000);
             } catch (InterruptedException exception) {

@@ -1,11 +1,15 @@
 package org.home.spring.jmx.common.beans;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import static org.home.spring.jmx.context.MyProfile.MANUALLY_CONFIGURED;
+
+@Profile(MANUALLY_CONFIGURED)
 @Component
-public class JmxBean implements InterfaceJmxBean {
+public class JmxBean implements Stoppable {
     private final AtomicBoolean continueProcess;
 
     public JmxBean() {
@@ -21,6 +25,7 @@ public class JmxBean implements InterfaceJmxBean {
         continueProcess.set(true);
     }
 
+    @Override
     public boolean isStopped() {
         return continueProcess.get();
     }

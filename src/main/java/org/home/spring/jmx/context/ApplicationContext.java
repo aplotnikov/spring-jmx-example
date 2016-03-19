@@ -1,7 +1,6 @@
 package org.home.spring.jmx.context;
 
-import org.home.spring.jmx.common.beans.InterfaceJmxBean;
-import org.home.spring.jmx.common.beans.JmxBean;
+import org.home.spring.jmx.common.beans.Stoppable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -23,9 +22,9 @@ import static org.home.spring.jmx.context.MyProfile.INTERFACE_DEFINE;
 @ComponentScan("org.home.spring.jmx.common")
 public class ApplicationContext {
     @Bean
-    public MBeanExporter jmxBeansExporter(MBeanInfoAssembler assembler, JmxBean jmxBean) {
+    public MBeanExporter jmxBeansExporter(MBeanInfoAssembler assembler, Stoppable stoppable) {
         Map<String, Object> beans = new HashMap<>();
-        beans.put("org.home.spring.jmx:name=JmxBean", jmxBean);
+        beans.put("org.home.spring.jmx:name=" + stoppable.getClass().getSimpleName(), stoppable);
 
         MBeanExporter exporter = new MBeanExporter();
         exporter.setBeans(beans);
@@ -62,7 +61,7 @@ public class ApplicationContext {
         InterfaceBasedMBeanInfoAssembler assembler = new InterfaceBasedMBeanInfoAssembler();
 
         assembler.setManagedInterfaces(new Class<?>[]{
-                InterfaceJmxBean.class
+                Stoppable.class
         });
 
         return assembler;
