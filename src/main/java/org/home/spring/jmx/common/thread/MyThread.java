@@ -1,15 +1,10 @@
 package org.home.spring.jmx.common.thread;
 
 import org.home.spring.jmx.common.beans.Stoppable;
-import org.springframework.stereotype.Component;
 
-import javax.inject.Inject;
-
-@Component
 public class MyThread implements Runnable {
     private final Stoppable stoppableBean;
 
-    @Inject
     public MyThread(Stoppable stoppableBean) {
         this.stoppableBean = stoppableBean;
 
